@@ -127,18 +127,17 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[param[0]]()
         for var in param[1:]:
             key, val = var.split("=")
-            if hasattr(new_instance, key):
-                try:
-                    if val.startswith('"') and val.endswith('"')\
-                            and len(val) >= 2:
-                        val = val[1:-1].replace("_", " ").replace("\\"", """)
-                    elif "." in val:
-                        val = float(val)
-                    else:
-                        val = int(val)
-                except Exception:
-                    continue
+            try:
+                if val.startswith('"') and val.endswith('"')\
+                        and len(val) >= 2:
+                    val = val[1:-1].replace("_", " ").replace('\\"', '"')
+                elif "." in val:
+                    val = float(val)
+                else:
+                    val = int(val)
                 setattr(new_instance, key, val)
+            except (ValueError, AttributeError):
+                continue
         storage.save()
         print(new_instance.id)
         storage.save()
