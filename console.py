@@ -131,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     if val.startswith('"') and val.endswith('"')\
                             and len(val) >= 2:
-                        val = val[1:-1].replace("_", " ").replace("\\", "")
+                        val = val[1:-1].replace("_", " ").replace("\\"", """)
                     elif "." in val:
                         val = float(val)
                     else:
