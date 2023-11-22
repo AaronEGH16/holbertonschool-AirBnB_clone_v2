@@ -143,12 +143,14 @@ class HBNBCommand(cmd.Cmd):
                 except Exception:
                     continue
             key_dic[key] = val
-        key_dic['updated_at'] = datetime.now().isoformat()
-        key_dic['created_at'] = datetime.now().isoformat()
-        key_dic['__class__'] = param[0]
-        key_dic['id'] = str(uuid.uuid4())
+        if len(key_dic) != 0:
+            key_dic['updated_at'] = datetime.now().isoformat()
+            key_dic['created_at'] = datetime.now().isoformat()
+            key_dic['__class__'] = param[0]
+            key_dic['id'] = str(uuid.uuid4())
         new_instance = HBNBCommand.classes[param[0]](**key_dic)
-        storage.new(new_instance)
+        if len(key_dic) != 0:
+            storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
