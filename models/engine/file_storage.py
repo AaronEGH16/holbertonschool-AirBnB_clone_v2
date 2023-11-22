@@ -8,10 +8,9 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    @classmethod
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls:
+        if cls is not None:
             return dict(filter(lambda val: val[1].__class__ == cls,
                                (FileStorage.__objects).items()))
         else:
