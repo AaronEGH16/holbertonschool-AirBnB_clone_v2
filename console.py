@@ -117,40 +117,30 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        param = args.split()
         if not args:
             print("** class name missing **")
             return
-
-        param = args.split()
-
-        if param[0] not in HBNBCommand.classes:
+        elif param[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
-        key_dic = {}
+        new_instance = HBNBCommand.classes[param[0]]()
+        print(param)
         for var in param[1:]:
             key, val = var.split("=")
-            if val.startswith('"') and val.endswith('"') and len(val) >= 2:
-                val = (val.split('\"'))[1].replace("_", " ")
-            elif "." in val:
+            if hasattr(new_instance, key):
                 try:
-                    val = float(val)
+                    if val.startswith('"') and val.endswith('"')\
+                            and len(val) >= 2:
+                        val = val[1:-1].replace("_", " ").replace("\\", "")
+                    elif "." in val:
+                        val = float(val)
+                    else:
+                        val = int(val)
                 except Exception:
                     continue
-            else:
-                try:
-                    val = int(val)
-                except Exception:
-                    continue
-            key_dic[key] = val
-        if len(key_dic) != 0:
-            key_dic['updated_at'] = datetime.now().isoformat()
-            key_dic['created_at'] = datetime.now().isoformat()
-            key_dic['__class__'] = param[0]
-            key_dic['id'] = str(uuid.uuid4())
-        new_instance = HBNBCommand.classes[param[0]](**key_dic)
-        if len(key_dic) != 0:
-            storage.new(new_instance)
+                setattr(new_instance, key, val)
+        storage.save()
         print(new_instance.id)
         storage.save()
 
