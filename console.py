@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+from datetime import datetime
+import uuid
 import sys
 from models.base_model import BaseModel
 from models.__init__ import storage
@@ -118,11 +120,35 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+
+        param = args.split()
+
+        if param[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+
+        key_dic = {}
+        for var in param[1:]:
+            key, val = var.split("=")
+            if val.startswith('"') and val.endswith('"') and len(val) >= 2:
+                val = (val.split('\"'))[1].replace("_", " ")
+            elif "." in val:
+                try:
+                    val = float(val)
+                except Exception:
+                    continue
+            else:
+                try:
+                    val = int(val)
+                except Exception:
+                    continue
+            key_dic[key] = val
+        key_dic['updated_at'] = datetime.now().isoformat()
+        key_dic['created_at'] = datetime.now().isoformat()
+        key_dic['__class__'] = param[0]
+        key_dic['id'] = str(uuid.uuid4())
+        new_instance = HBNBCommand.classes[param[0]](**key_dic)
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
