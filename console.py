@@ -128,16 +128,18 @@ class HBNBCommand(cmd.Cmd):
         for var in param[1:]:
             key, val = var.split("=")
             try:
-                if val.startswith('"') and val.endswith('"')\
-                        and len(val) >= 2:
-                    val = val[1:-1].replace("_", " ").replace('\\"', '"')
-                elif "." in val:
-                    val = float(val)
-                else:
-                    val = int(val)
-                setattr(new_instance, key, val)
+                if hasattr(new_instance, key):
+                    if val.startswith('"') and val.endswith('"')\
+                            and len(val) >= 2:
+                        val = val[1:-1].replace("_", " ").replace('\\"', '"')
+                    elif "." in val:
+                        val = float(val)
+                    else:
+                        val = int(val)
+                    if type(getattr(new_instance, key)) == type(val):
+                        setattr(new_instance, key, val)
             except (ValueError, AttributeError):
-                continue
+                pass
         storage.save()
         print(new_instance.id)
         storage.save()
