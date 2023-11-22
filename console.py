@@ -125,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[param[0]]()
-        print(param)
         for var in param[1:]:
             key, val = var.split("=")
             if hasattr(new_instance, key):
