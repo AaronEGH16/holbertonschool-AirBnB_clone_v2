@@ -36,9 +36,8 @@ class DBStorage:
     def all(self, cls=None):
         """"""
         obj_cls = {"User": User, "BaseModel": BaseModel,
-                   "Place": Place, "State": State,
-                   "City": City, "Amenity": Amenity,
-                   "Review": Review}
+                   "State": State,
+                   "City": City}
         db_dict = {}
 
         if cls is not None and cls != "":
@@ -47,11 +46,12 @@ class DBStorage:
                 key = f"{objects.__class__.__name__}.{objects.id}"
                 db_dict[key] = objects
         else:
-            for cls_type in obj_cls.values():
-                query = (self.__session).query(cls_type).all()
-                for objects in query:
-                    key = f"{objects.__class__.__name__}.{objects.id}"
-                    db_dict[key] = objects
+            for cls_name, cls_type in obj_cls.items():
+                if cls_name != "BaseModel":
+                    query = (self.__session).query(cls_type).all()
+                    for objects in query:
+                        key = f"{objects.__class__.__name__}.{objects.id}"
+                        db_dict[key] = objects
         return db_dict
 
     def new(self, obj):
