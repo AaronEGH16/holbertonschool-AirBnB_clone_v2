@@ -23,9 +23,10 @@ class DBStorage:
 
     def __init__(self):
         """"""
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                           format(self.user, self.pwd, self.host,
-                                  self.database), pool_pre_ping=True)
+        self.__engine = create_engine(
+            'mysql+mysqldb://{}:{}@{}/{}'.format(
+                self.user, self.pwd, self.host, self.database),
+            pool_pre_ping=True)
 
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
@@ -33,22 +34,22 @@ class DBStorage:
     def all(self, cls=None):
         """"""
         obj_cls = {"User": User, "BaseModel": BaseModel,
-           "Place": Place, "State": State,
-           "City": City, "Amenity": Amenity,
-           "Review": Review}
+                   "Place": Place, "State": State,
+                   "City": City, "Amenity": Amenity,
+                   "Review": Review}
         db_dict = {}
 
-        if cls != None and cls != "":
+        if cls is not None and cls != "":
             query = (self.__session).query(obj_cls[cls]).all()
             for objects in query:
                 key = f"{objects.__class__.__name__}.{objects.id}"
-                db_dict[key]=objects
+                db_dict[key] = objects
         else:
             for cls_type in obj_cls.values():
                 query = (self.__session).query(cls_type).all()
                 for objects in query:
                     key = f"{objects.__class__.__name__}.{objects.id}"
-                    db_dict[key]=objects
+                    db_dict[key] = objects
         return db_dict
 
     def new(self, obj):
