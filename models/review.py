@@ -9,7 +9,7 @@ class Review(BaseModel):
     """ Review classto store review information """
     __tablename__ = "reviews"
     if getenv("HBNB_TYPE_STORAGE") == "db":
-        text = Column(String(1024), nullable=False, )
+        text = Column(String(1024), nullable=False)
         user_id = Column(String(60), ForeignKey("user.id"), nullable=False)
         place_id = Column(String(60), ForeignKey("place.id"), nullable=False)
     else:
