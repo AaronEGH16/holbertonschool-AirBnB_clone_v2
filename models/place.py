@@ -48,23 +48,25 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    @property
-    def reviews(self):
-        """
-        Return the list of Reviews instances with
-        place_id equal to the current Review.id
-        """
-        return [review for review in models.storage.all("Review").values()
-                if review.place_id == self.id]
+        @property
+        def reviews(self):
+            """
+            Return the list of Reviews instances with
+            place_id equal to the current Review.id
+            """
+            return [review for review in
+                    models.storage.all("Review").values()
+                    if review.place_id == self.id]
 
-    @property
-    def amenities(self):
-        """"""
-        return [amenity for amenity in models.storage.all("Amenity").values()
-                if amenity.amenity_ids == self.id]
+        @property
+        def amenities(self):
+            """"""
+            return [amenity for amenity in
+                    models.storage.all("Amenity").values()
+                    if amenity.amenity_ids == self.id]
 
-    @amenities.setter
-    def amenities(self, amenity=None):
-        """"""
-        if amenity is not None and amenity.__class__.__name__ == "Amenity":
-            self.amenity_ids.append(amenity.id)
+        @amenities.setter
+        def amenities(self, amenity=None):
+            """"""
+            if amenity is not None and amenity.__class__.__name__ == "Amenity":
+                self.amenity_ids.append(amenity.id)
