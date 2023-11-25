@@ -8,8 +8,10 @@ from os import getenv
 
 
 place_amenity = Table('place_amenity', Base.metadata,
-    Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
-    Column('amenity_id',String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False))
+    Column('place_id', String(60), ForeignKey('places.id'),
+           primary_key=True, nullable=False),
+    Column('amenity_id',String(60), ForeignKey('amenities.id'),
+           primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -28,7 +30,8 @@ class Place(BaseModel, Base):
         longitude = Column(Float)
         reviews = relationship("Review", backref="place",
                                cascade="all, delete, delete-orphan")
-        amenities = relationship("Amenity", secondary=place_amenity, viewonly=False, back_populates="place_amenity")
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False, back_populates="place_amenities")
         amenity_ids = []
 
     else:
@@ -43,14 +46,30 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         reviews = []
+        amenities = []
         amenity_ids = []
 
     @property
     def reviews(self):
         """
-        Return the list of City instances with
-        state_id equal to the current State.id
+        Return the list of Reviews instances with
+        place_id equal to the current Place.id
         """
         if getenv("HBNB_TYPE_STORAGE") != "db":
             return [review for review in models.storage.all("Place").values()
                     if review.place_id == self.id]
+
+    @property
+    def amenities(self):
+        """"""
+        if getenv("HBNB_TYPE_STORAGE") != "db":
+            return [amnity for amnity in models.storage.all("Amenity").values()
+                    if amnity.amenity_ids == self.id]
+    
+    @amenities.setter
+    def amenities(self, obj=None):
+        """"""
+        if getenv("HBNB_TYPE_STORAGE") != "db":
+            if obj:
+                [self.amenity_ids.append(obj) for amnity in models.storage.all("Amenity").values()
+                 if amnity.amenity_ids == self.id]
