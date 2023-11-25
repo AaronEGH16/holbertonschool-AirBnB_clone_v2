@@ -37,7 +37,7 @@ class DBStorage:
         """"""
         obj_cls = {"User": User, "BaseModel": BaseModel,
                    "State": State, "Place": Place,
-                   "City": City}
+                   "City": City, "Review": Review}
         db_dict = {}
 
         if cls is not None and cls != "":
