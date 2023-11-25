@@ -3,7 +3,7 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-import models
+from models import storage
 from os import getenv
 
 
@@ -26,5 +26,5 @@ class State(BaseModel, Base):
         state_id equal to the current State.id
         """
         if getenv("HBNB_TYPE_STORAGE") != "db":
-            return [city for city in models.storage.all("City").values()
+            return [city for city in storage.all("City").values()
                     if city.state_id == self.id]
