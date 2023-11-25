@@ -10,8 +10,8 @@ class Review(BaseModel):
     __tablename__ = "reviews"
     if getenv("HBNB_TYPE_STORAGE") == "db":
         place = Column(String(1024), nullable=False)
-        user_id = Column(String(60), nullable=False)
-        place = Column(String(60), ForeignKey("user.id"), nullable=False)
+        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+        place_id = Column(String(60), ForeignKey("places.id"), nullable=False)
     else:
         place_id = ""
         user_id = ""
