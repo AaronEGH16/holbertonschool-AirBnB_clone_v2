@@ -36,7 +36,7 @@ class DBStorage:
     def all(self, cls=None):
         """"""
         obj_cls = {"User": User, "BaseModel": BaseModel,
-                   "State": State,
+                   "State": State, "Place": Place,
                    "City": City}
         db_dict = {}
 
