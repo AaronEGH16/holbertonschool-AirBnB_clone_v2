@@ -68,6 +68,10 @@ class DBStorage:
         if obj is not None:
             (self.__session).delete(obj)
 
+    def close(self):
+        """ close session """
+        (self.__session).close()
+
     def reload(self):
         """"""
         self.__session = Base.metadata.create_all(self.__engine)
