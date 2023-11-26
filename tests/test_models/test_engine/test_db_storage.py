@@ -8,23 +8,12 @@ import os
 obj_storage = os.getenv("HBNB_TYPE_STORAGE")
 
 
-class test_fileStorage(unittest.TestCase):
+class test_DbStorage(unittest.TestCase):
     """ Class to test the DB storage method """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def setUp(self):
         """ Set up test environment """
-
-    def tearDown(self):
-        """ Remove storage DB at end of tests """
-        try:
-            os.remove('file.json')
-        except:
-            pass
-
-    @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
-    def test_obj_list_empty(self):
-        """ __objects is initially empty """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_new(self):
@@ -35,20 +24,16 @@ class test_fileStorage(unittest.TestCase):
         """ __objects is properly returned """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
-    def test_base_model_instantiation(self):
-        """ DB is not created on BaseModel save """
-
-    @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_empty(self):
         """ Data is saved to DB """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_save(self):
-        """ FileStorage save method """
+        """ DbStorage save method """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_reload(self):
-        """ Storage DB is successfully loaded to __objects """
+        """ Storage DB is successfully loaded """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_reload_empty(self):
@@ -59,16 +44,8 @@ class test_fileStorage(unittest.TestCase):
         """ Nothing happens if DB does not exist """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
-    def test_base_model_save(self):
-        """ BaseModel save method calls storage save """
-
-    @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
-    def test_type_path(self):
-        """ Confirm __file_path is string """
-
-    @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_type_objects(self):
-        """ Confirm __objects is a dict """
+        """ Confirm objects is a dict """
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_key_format(self):
@@ -76,4 +53,4 @@ class test_fileStorage(unittest.TestCase):
 
     @unittest.skipIf(obj_storage != "db", "testing DB Storage Only")
     def test_storage_var_created(self):
-        """ FileStorage object storage created """
+        """ DbStorage object storage created """
