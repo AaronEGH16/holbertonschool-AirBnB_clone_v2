@@ -35,7 +35,7 @@ class BaseModel:
             for key, val in kwargs.items():
                 if "__class__" not in key:
                     setattr(self, key, val)
-            if not self.id:
+            if not kwargs.get('id') or not self.id:
                 self.id = str(uuid.uuid4())
 
     def __str__(self):
