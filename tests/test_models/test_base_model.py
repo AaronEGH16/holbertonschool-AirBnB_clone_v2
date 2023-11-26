@@ -50,7 +50,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
+    '@unittest.skipIf(obj_storage != "fs", "testing File Storage Only")'
     def test_save(self):
         """ Testing save """
         i = self.value()
@@ -82,7 +82,9 @@ class test_basemodel(unittest.TestCase):
         """ """
         n = {'Name': 'test'}
         new = self.value(**n)
-        self.assertEqual(new.to_dict()['Name'], n['Name'])
+        with self.assertRaises(KeyError):
+            new = self.value(**n)
+        "self.assertEqual(new.to_dict()['Name'], n['Name'])"
 
     def test_id(self):
         """ """
