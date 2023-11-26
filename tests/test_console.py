@@ -13,4 +13,8 @@ class TestHBNBCommand(unittest.TestCase):
     """"""
     def EOF_test(self):
         """"""
-        with patch()
+        with patch('sys.stdout', new=StringIO()) as _output:
+            self.HBNB.onecmd("EOF")
+            self.assertEqual("\n", _output.getvalue())
+if __name__ == "__main__":
+    unittest.main()
