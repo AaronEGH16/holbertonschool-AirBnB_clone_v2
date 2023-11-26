@@ -5,6 +5,8 @@ from models.base_model import BaseModel
 from models import storage
 import os
 
+obj_storage = os.getenv("HBNB_TYPE_STORAGE")
+
 
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
@@ -36,17 +38,20 @@ class test_fileStorage(unittest.TestCase):
             temp = obj
         self.assertTrue(temp is obj)
 
+    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
     def test_all(self):
         """ __objects is properly returned """
         new = BaseModel()
         temp = storage.all()
         self.assertIsInstance(temp, dict)
 
+    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
         new = BaseModel()
         self.assertFalse(os.path.exists('file.json'))
 
+    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
     def test_empty(self):
         """ Data is saved to file """
         new = BaseModel()
@@ -82,6 +87,7 @@ class test_fileStorage(unittest.TestCase):
         """ Nothing happens if file does not exist """
         self.assertEqual(storage.reload(), None)
 
+    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
     def test_base_model_save(self):
         """ BaseModel save method calls storage save """
         new = BaseModel()
