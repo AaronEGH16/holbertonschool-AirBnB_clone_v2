@@ -9,6 +9,7 @@ import unittest
 from uuid import UUID
 import json
 import os
+from io import StringIO
 
 
 class TestHBNBCommand(unittest.TestCase):
