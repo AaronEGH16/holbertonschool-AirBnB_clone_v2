@@ -9,6 +9,7 @@ from uuid import UUID
 import json
 import os
 
+
 class TestHBNBCommand(unittest.TestCase):
     """"""
     def EOF_test(self):
@@ -16,5 +17,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as _output:
             self.HBNB.onecmd("EOF")
             self.assertEqual("\n", _output.getvalue())
+
+
 if __name__ == "__main__":
     unittest.main()
