@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """ """
+from operator import imod
 from models.base_model import BaseModel
 import unittest
 import datetime
 from uuid import UUID
 import json
 import os
+
+obj_storage = os.getenv("HBNB_TYPE_STORAGE")
 
 
 class test_basemodel(unittest.TestCase):
@@ -47,6 +50,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(obj_storage != "fs", "testing File Storage Only")
     def test_save(self):
         """ Testing save """
         i = self.value()
