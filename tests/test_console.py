@@ -17,13 +17,15 @@ class TestHBNBCommand(unittest.TestCase):
     def test_EOF(self):
         """"""
         with patch('sys.stdout', new=StringIO()) as _output:
+            self.HBNB = HBNBCommand()
             self.HBNBCommand.onecmd("EOF")
             self.assertEqual("\n", _output.getvalue())
 
     def test_quit(self):
         """"""
         with patch('sys.stdout', new=StringIO()) as _output:
-            self.HBNBCommand.onecmd("quit")
+            self.HBNB = HBNBCommand()
+            self.HBNB.onecmd("quit")
             self.assertEqual("", _output.getvalue())
 
 
