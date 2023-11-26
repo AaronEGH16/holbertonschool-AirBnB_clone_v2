@@ -18,7 +18,7 @@ class TestHBNBCommand(unittest.TestCase):
         """"""
         with patch('sys.stdout', new=StringIO()) as _output:
             self.HBNB = HBNBCommand()
-            self.HBNBCommand.onecmd("EOF")
+            self.HBNB.onecmd("EOF")
             self.assertEqual("\n", _output.getvalue())
 
     def test_quit(self):
