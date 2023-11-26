@@ -11,8 +11,26 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None and cls != "":
-            return dict(filter(lambda val: val[1].__class__.__name__ == cls,
-                               (FileStorage.__objects).items()))
+            from models.base_model import BaseModel
+            from models.user import User
+            from models.place import Place
+            from models.state import State
+            from models.city import City
+            from models.amenity import Amenity
+            from models.review import Review
+
+            classes = {
+                        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                        'State': State, 'City': City, 'Amenity': Amenity,
+                        'Review': Review
+                    }
+
+            if cls in classes.keys():
+                return dict(filter(lambda val: val[1].__class__.__name__ ==
+                                   cls, (FileStorage.__objects).items()))
+            elif cls in classes.values():
+                return dict(filter(lambda val: val[1].__class__ == cls,
+                                   (FileStorage.__objects).items()))
         else:
             return FileStorage.__objects
 
