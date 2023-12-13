@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    This module contains a flask web app
+    This module contains a Flask web app
     that starts on 0.0.0.0:5000
         routes:
             /:  display "Hello HBNB!"
@@ -13,11 +13,11 @@
             /number/<n>:    display "<n> is a number" only
                             if n is an integer
             /number_template/<n>:   display a template
-                                    with <n> value in the html Body
+                                    with <n> value in the HTML Body
                                     only if n is an integer
             /number_odd_or_even/<n>:    display a template
-                                        with <n> value in the html Body
-                                        and says if it is odd or even
+                                        with <n> value in the HTML Body
+                                        and say if it is odd or even
                                         only if n is an integer
             /states_list:   display a template with a list of states
 """
@@ -68,7 +68,7 @@ def number_odd_or_even(n):
 
 
 @app.teardown_appcontext
-def teardown_appcontext(self):
+def teardown(self):
     storage.close()
 
 
@@ -80,7 +80,7 @@ def states_list():
 
 if __name__ == '__main__':
     """
-        The web application listen on
+        The web application listens on
         0.0.0.0, port 5000 in debug mode
     """
     app.run(host='0.0.0.0', port=5000, debug=True)
