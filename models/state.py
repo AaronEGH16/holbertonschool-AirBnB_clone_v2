@@ -17,13 +17,12 @@ class State(BaseModel, Base):
                               cascade="all, delete, delete-orphan")
     else:
         name = ""
-        cities = []
 
-    @property
-    def cities(self):
-        """
-        Return the list of City instances with
-        state_id equal to the current State.id
-        """
-        return [city for city in models.storage.all("City").values()
-                if city.state_id == self.id]
+        @property
+        def cities(self):
+            """
+            Return the list of City instances with
+            state_id equal to the current State.id
+            """
+            return [city for city in models.storage.all("City").values()
+                    if city.state_id == self.id]
