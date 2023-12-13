@@ -68,7 +68,7 @@ def number_odd_or_even(n):
 
 
 @app.teardown_appcontext
-def teardown_appcontext(self):
+def teardown(self):
     storage.close()
 
 
