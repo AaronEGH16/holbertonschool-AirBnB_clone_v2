@@ -2,24 +2,24 @@
 """
     This module contains a Flask web app
     that starts on 0.0.0.0:5000
-        routes:
-            /:  display "Hello HBNB!"
-            /hbnb:  display "HBNB"
-            /c/<text>:  display "C " followed by
+    routes:
+        /:  display "Hello HBNB!"
+        /hbnb:  display "HBNB"
+        /c/<text>:  display "C " followed by
+                    text converting "_" to spaces
+        /python/<text>: display "Python " followed by
                         text converting "_" to spaces
-            /python/<text>: display "Python " followed by
-                            text converting "_" to spaces
-                            (default text value is "is cool")
-            /number/<n>:    display "<n> is a number" only
-                            if n is an integer
-            /number_template/<n>:   display a template
+                        (default text value is "is cool")
+        /number/<n>:    display "<n> is a number" only
+                        if n is an integer
+        /number_template/<n>:   display a template
+                                with <n> value in the HTML Body
+                                only if n is an integer
+        /number_odd_or_even/<n>:    display a template
                                     with <n> value in the HTML Body
+                                    and say if it is odd or even
                                     only if n is an integer
-            /number_odd_or_even/<n>:    display a template
-                                        with <n> value in the HTML Body
-                                        and say if it is odd or even
-                                        only if n is an integer
-            /states_list:   display a template with a list of states
+        /states_list:   display a template with a list of states
 """
 
 from models import storage
@@ -80,7 +80,7 @@ def states_list():
 
 if __name__ == '__main__':
     """
-        The web application listens on
-        0.0.0.0, port 5000 in debug mode
+    The web application listens on
+    0.0.0.0, port 5000 in debug mode
     """
     app.run(host='0.0.0.0', port=5000, debug=True)
