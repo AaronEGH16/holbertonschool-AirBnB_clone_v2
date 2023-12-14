@@ -4,7 +4,7 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        {% if not id %}
+        {% if id == "State.None" %}
         <H1>States</H1>
         <UL>
             {% for state in obj_list.values() | sort(attribute="name") %}
